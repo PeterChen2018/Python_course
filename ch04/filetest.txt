@@ -1,0 +1,1 @@
+runfile('D:/PythonBook/附書光碟/ch04/filereadUTF-8.py', wdir='D:/PythonBook/附書光碟/ch04')

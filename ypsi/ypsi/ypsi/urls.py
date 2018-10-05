@@ -23,9 +23,11 @@ from django.conf.urls import include, url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
-admin.autodiscover()
+# admin.autodiscover()
 
+from psi import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', views.ypsi_index),
 ]

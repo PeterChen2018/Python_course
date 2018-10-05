@@ -16,6 +16,9 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+from kucun.views import all_goods
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', all_goods ),
 ]

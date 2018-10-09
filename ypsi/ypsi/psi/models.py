@@ -35,33 +35,59 @@ class Shop(models.Model):
     class Meta:
         verbose_name_plural = ('店舖管理')
 
+
+class Staff(models.Model):
+    user = models.ForeignKey(User,max_length=10,help_text="绑定ID")
+    name = models.CharField(max_length=10,help_text="姓名")
+    sex = models.CharField(max_length=2,help_text="性别" ,default='M' )
+    image = models.ImageField(upload_to='staffs',blank=True,null=True,help_text="照片")
+    edu = models.CharField(max_length=4,help_text="學歷")
+    marital = models.BooleanField(help_text="婚否" ,default=True )
+    school = models.CharField(max_length=100,help_text="畢業學校",blank=True,null=True)
+    graduation = models.DateField(help_text="畢業日期",blank=True,null=True)
+    address = models.CharField(help_text="住址",max_length=100)
+    cellphone = models.CharField(help_text="手機",max_length=11)
+    idcode = models.CharField(help_text="身份證號",max_length=18,unique=True)
+    homephone = models.CharField(help_text="緊急聯繫電話",max_length=11)
+    shop = models.ForeignKey(Shop,help_text="店鋪")
+    level = models.SmallIntegerField(help_text="職位" ,default= 6)
+    joindate = models.DateTimeField('到職日期',default=timezone.now )
+    exwork = models.CharField(help_text="工作經歷",max_length=255,blank=True,null=True)
+    family = models.CharField(help_text="家庭成員及關係",max_length=255)
+    note = models.CharField(help_text="備註",max_length=100,blank=True,null=True)
+    def __unicode__(self):
+        return self.name
+    class Meta:
+        verbose_name_plural = ('人員管理')
+
+"""
 class Staff(models.Model):
     user = models.ForeignKey(User,max_length=10,help_text="绑定ID")
     name = models.CharField(max_length=10,help_text="姓名")
     sex = models.CharField(max_length=2,help_text="性别",choices=(('F', '女性'),('M', '男性')),default='F')
     image = models.ImageField(upload_to='staffs',blank=True,null=True,help_text="照片")
-    edu = models.CharField(max_length=4,help_text="学历")
+    edu = models.CharField(max_length=4,help_text="學歷")
     marital = models.BooleanField(help_text="婚否",choices=((True, '已婚'),(False, '未婚')))
-    school = models.CharField(max_length=100,help_text="毕业学校",blank=True,null=True)
-    graduation = models.DateField(help_text="毕业日期",blank=True,null=True)
+    school = models.CharField(max_length=100,help_text="畢業學校",blank=True,null=True)
+    graduation = models.DateField(help_text="畢業日期",blank=True,null=True)
     address = models.CharField(help_text="住址",max_length=100)
-    cellphone = models.CharField(help_text="手机",max_length=11)
-    idcode = models.CharField(help_text="身份证号",max_length=18,unique=True)
-    homephone = models.CharField(help_text="紧急联系电话",max_length=11)
-    shop = models.ForeignKey(Shop,help_text="店铺")
-    level = models.SmallIntegerField(help_text="岗位",choices=((1, '董事'),(2,'会计'),(3,'仓管'),(4,'经理'),(5,'店长'),(6,'店员'),(7,'后勤'),(8,'实习'),(9,'其他'),(99,'离职')),default=6)
+    cellphone = models.CharField(help_text="手機",max_length=11)
+    idcode = models.CharField(help_text="身份證號",max_length=18,unique=True)
+    homephone = models.CharField(help_text="緊急聯繫電話",max_length=11)
+    shop = models.ForeignKey(Shop,help_text="店鋪")
+    level = models.SmallIntegerField(help_text="職位",choices=((1, '董事'),(2,'會計'),(3,'倉管'),(4,'經理'),(5 ,'店長'),(6,'店員'),(7,'後勤'),(8,'實習'),(9,'其他'),(99,'離職')),default= 6)
     # joindate = models.DateField(default=datetime.now(),help_text="到職日期")
     joindate = models.DateTimeField('到職日期',default=timezone.now )
-    exwork = models.CharField(help_text="工作经历",max_length=255,blank=True,null=True)
-    family = models.CharField(help_text="家庭成员及关系",max_length=255)
-    note = models.CharField(help_text="备注",max_length=100,blank=True,null=True)
+    exwork = models.CharField(help_text="工作經歷",max_length=255,blank=True,null=True)
+    family = models.CharField(help_text="家庭成員及關係",max_length=255)
+    note = models.CharField(help_text="備註",max_length=100,blank=True,null=True)
     def get_level_display(self):
         pass
     def __unicode__(self):
-        return (u"%s %s") %(self.get_level_display(),self.name)#显示Choices的值
+        return (u"%s %s") %(self.get_level_display(),self.name) # 顯示 Choices 的值
     class Meta:
-        verbose_name_plural = ('人员管理')
-
+        verbose_name_plural = ('人員管理')
+"""
 
 class PaySlip(models.Model):
     staff = models.ForeignKey(Staff,help_text="員工")
@@ -100,9 +126,9 @@ class Customer(models.Model):
         verbose_name_plural = ('顾客管理')
 
 class Category(models.Model):
-    name = models.CharField(max_length=10,help_text="分类名称")
-    pid = models.ForeignKey('self', blank=True, null=True,help_text="父级分类")
-    hidden = models.BooleanField(default=False,help_text="是否隐藏")
+    name = models.CharField(max_length=10,help_text="分類名稱")
+    pid = models.ForeignKey('self', blank=True, null=True,help_text="父級分類")
+    hidden = models.BooleanField(default=False,help_text="是否隱藏")
     def __unicode__(self):
         if self.pid is not None:
             return ("%s-%s") %(self.pid.name,self.name)
@@ -110,7 +136,7 @@ class Category(models.Model):
             return ("%s") %self.name
 
     class Meta:
-        verbose_name_plural = ('分类管理')
+        verbose_name_plural = ('分類管理')
 
 class Products(models.Model):
     name = models.CharField(max_length=30,help_text="商品名稱")

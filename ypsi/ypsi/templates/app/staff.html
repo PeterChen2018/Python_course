@@ -36,18 +36,18 @@
 {% endblock %}
 {% block nav %}
 	<li><a href="/">Home</a></li>
-        <li><a href="/sales/">销售管理</a></li>
-        <li><a href="/depots/">库存管理</a></li>
-        <li class="act">个人资料</li>
-        <li><a href="/customer/">会员管理</a></li>
+        <li><a href="/sales/">銷售管理</a></li>
+        <li><a href="/depots/">庫存管理</a></li>
+        <li class="act">個人資料</li>
+        <li><a href="/customer/">會員管理</a></li>
 {% endblock %}
 {% block head-foot%}
     <div id="head-foo">
     <div id="head-foot">
         <ul>
-            <li><a href ="/staff/">概览</a></li>
-            <li><a href ="/staff/?act=payList">薪资记录</a></li>
-            <li><a href ="/staff/?act=pwd">修改密码</a></li>
+            <li><a href ="/staff/">概覽</a></li>
+            <li><a href ="/staff/?act=payList">薪資記錄</a></li>
+            <li><a href ="/staff/?act=pwd">修改密碼</a></li>        
         </ul>
     </div>
     </div>
@@ -72,7 +72,7 @@
     {% else %}
     <div id="p-left" >
         <div style="border: 1px solid #cccccc;border-radius: 6px;">
-            <div style="border-bottom: 1px solid #ccc;padding: 4px 10px 4px 10px;background-color:#e4e4e4;border-radius: 5px 5px 0 0;"><img src="/static/images/css/user_small.png" class=" png"/> 员工详细信息</div>
+            <div style="border-bottom: 1px solid #ccc;padding: 4px 10px 4px 10px;background-color:#e4e4e4;border-radius: 5px 5px 0 0;"><img src="/static/images/css/user_small.png" class=" png"/>員工詳細資料</div>
             <div >
             <table>
                 <tr>
@@ -85,11 +85,11 @@
                         <ul style="list-style : none outside;line-height: 1.85em;font-size: 14px;margin: 0;padding: 0;">
                         <li>姓名：{{ staff.name }}</li>
                         <li>性别：{{ staff.get_sex_display }}</li>
-                        <li>部门：{{ staff.shop }}</li>
-                        <li>职务：{{ staff.get_level_display }}</li>
-                        <li>入职：{{ staff.joindate|date:"Y-m-d" }}</li>
-                        <li>手机：{{ staff.cellphone }}</li>
-                        <li>固话：{{ staff.homephone }}</li>
+                        <li>部門：{{ staff.shop }}</li>
+                        <li>職務：{{ staff.get_level_display }}</li>
+                        <li>到職：{{ staff.joindate|date:"Y-m-d" }}</li>
+                        <li>手機：{{ staff.cellphone }}</li>
+                        <li>市話：{{ staff.homephone }}</li>
                         </ul>
                     </td>
                 </tr>
@@ -100,14 +100,14 @@
         <div style="float:right;width:235px;">
         <div style="background:#e4e4e4;padding: 6px">
 
-                 <span><img src="/static/images/css/dot16.png" class=" png"/> 人员列表</span>
+                 <span><img src="/static/images/css/dot16.png" class=" png"/>人員列表</span>
             
             <div style="background : #fafafa;padding: 6px">
                {% regroup staff_list by shop as grouped %}
                     {% for group in grouped %}
                         <span><img src="/static/images/css/add_small2.png" alt="" class="png"> {{ group.grouper }}</span>
                         <ul style="list-style : square outside;margin: 4px 0;*margin: 4px 0 4px 20px">
-                            {% for item in group.list %}<li><a href="?id={{ item.id }}" title="紧急联系：{{ item.homephone }}" class="blue">{{ item.name }} {{ item.cellphone }}</a></li>{% endfor %}
+                            {% for item in group.list %}<li><a href="?id={{ item.id }}" title="緊急聯繫：{{ item.homephone }}" class="blue">{{ item.name }} {{ item.cellphone }}</a></li>{% endfor %}
                         </ul>
                     {% endfor %}
             </div>

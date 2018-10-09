@@ -29,5 +29,10 @@ from psi import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^accounts/login/', views.user_login),
     url(r'^$', views.ypsi_index),
+    url(r'^staff/$', views.ypsi_staff),
+    url(r'^depots/$', views.ypsi_depots),
+    url(r'^category/$', views.ypsi_category),
+    url(r'^depots/in/$', views.ypsi_depots_in),
 ]

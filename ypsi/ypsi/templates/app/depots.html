@@ -150,22 +150,22 @@
 {% endblock %}
 {% block nav %}
         <li><a href="/">Home</a></li>
-        <li><a href="/sales/">销售管理</a></li>
-        <li class="act">库存管理</li>
-        <li><a href="/staff/">个人资料</a></li>
-        <li><a href="/customer/">会员管理</a></li>
+        <li><a href="/sales/">銷售管理</a></li>
+        <li class="act">庫存管理</li>
+        <li><a href="/staff/">個人資料</a></li>
+        <li><a href="/customer/">會員管理</a></li>
 {% endblock %}
 {% block head-foot%}
     <div id="head-foo">
     <div id="head-foot">
         <ul>
-            <li><a href ="#">概览</a></li>
-            <li><a href ="/depots/remit/">汇款</a></li>
-            <li><a href ="/depots/in/">入库</a></li>
-            <li><a href ="/depots/out/">出库</a></li>
-            <li><a href ="/depots/re/">退库</a></li>
-            <li><a href ="/category/" target="_blank">类别管理</a></li>
-            <li><a href ="/depots/product/">产品细目</a></li>
+            <li><a href ="#">概覽</a></li>
+            <li><a href ="/depots/remit/">匯款</a></li>
+            <li><a href ="/depots/in/">入庫</a></li>
+            <li><a href ="/depots/out/">出庫</a></li>
+            <li><a href ="/depots/re/">退庫</a></li>
+            <li><a href ="/category/" target="_blank">類別管理</a></li>
+            <li><a href ="/depots/product/">產品細目</a></li>
         </ul>
     </div>
     </div>
@@ -173,24 +173,24 @@
 {% block contents %}
     <div>
     <form id="p_search" action="." method="get">
-        <label for="name_input">产品出入库记录查询：</label><input type="text" id="name_input" class="ac_input" maxlength="20" style="width:120px" title="请最少输入两个关键字符便于查找"/>
+        <label for="name_input">產品出入庫記錄查詢：</label><input type="text" id="name_input" class="ac_input" maxlength="20" style="width:120px" title="請最少輸入兩個關鍵字符便於查找"/>
         <input type="text" id="pid" style="display: none"/>
-        <label for="in_or_out" style="margin-left: 10px">选择</label>
+        <label for="in_or_out" style="margin-left: 10px">選擇</label>
             <select id="in_or_out">
                 {% if level < 5%}
-                <option value="1">入库记录</option>
+                <option value="1">入庫記錄</option>
                 {% endif %}
-                <option value="2">出库记录</option>
-                <option value="3">退库记录</option>
+                <option value="2">出庫記錄</option>
+                <option value="3">退庫記錄</option>
             </select>
-        <label for="depot_id" style="margin-left: 10px"> 仓库</label>
+        <label for="depot_id" style="margin-left: 10px">倉庫</label>
             <select id="depot_id">
-                <option value="0">全部仓库</option>
+                <option value="0">全部倉庫</option>
                 {% for d in d_list %}<option value="{{ d.id }}" >{{ d.name }}</option>{% endfor %}
             </select>
-        <label for="shop_id" style="margin-left: 10px"> 店铺</label>
+        <label for="shop_id" style="margin-left: 10px">店鋪</label>
                 <select id="shop_id">
-                    <option value="0">全部店铺</option>
+                    <option value="0">全部店鋪</option>
                     {% for s in s_list %}<option value="{{ s.id }}" >{{ s.name }}</option>{% endfor %}
                 </select>
         <label for="hidden_input" style="margin-left: 10px"> 包含已删</label>

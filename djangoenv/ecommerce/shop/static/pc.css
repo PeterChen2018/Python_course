@@ -1,0 +1,10 @@
+body {margin:20px} 
+#container {width:940px; margin:auto}
+header {display:block; clear:both; margin:0 0 10px}
+footer {display:block; clear:both; text-align:left; background:linear-gradient(to bottom, lightblue, white)}
+article {font-size: 100%; float:left; width:600px; margin:0 0 20px}
+aside {float:right; width:320px; margin:0 0 20px; border:solid 1px lightgray; border-radius:10px}
+#items {background-color:lightblue; overflow:hidden}
+#items ul {margin:0px}
+#items li {list-style-type:none; float:left}
+#items li a {display:block; width:60px; height:30px; color:black; border-right:1px white solid; text-decoration:none; text-align:center; padding:10px 0px 0px}	

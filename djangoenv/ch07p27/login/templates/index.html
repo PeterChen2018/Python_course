@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>首頁</title>
+</head>
+<body>
+    <h2>首頁</h2>
+    {% if request.user.is_authenticated %}
+        歡迎光臨: {{name}}
+		<br>First name: {{first_name}}
+		<br>Last name: {{last_name}}
+		<br>email: {{email}}
+		<br>is_active: {{is_active}}
+		<br>is_staff: {{is_staff}}
+		<br>last_login: {{last_login}}
+        <p><a href="/logout/">登出</a></p>
+    {% else %}
+        <p>您尚未登入喔~</p>
+        <a href="/login/">登入</a>
+    {% endif %}
+    <span style="color:red">{{message}}</span>
+</body>
+</html>

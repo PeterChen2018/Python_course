@@ -7,18 +7,29 @@ __author__ = 'Test'
 
 urlpatterns = [
     url(r'^$', views.all_goods, name='all_goods'),
+    url(r'^all/goods/$', views.all_goods, name='all_goods'),
     url(r'^out/$', views.out, name='out'),
     url(r'^out_in/$', views.out, name='out_in'),
     url(r'^in/$', views.in_, name='in'),
-    url(r'^login/$', views.mylogin, name='mylogin'),
+    url(r'^login', views.mylogin, name='mylogin'),
+    url(r'^accounts/login', views.mylogin, name='mylogin'),
+    url(r'^logout/$', views.mylogout, name='logout'),
+    url(r'^login/fail$', views.login_fail, name='login_fail'),
+    url(r'^get_allsessions/$', views.get_allsessions),
+    url(r'^get_session/(\w+)/$', views.get_session),
+    url(r'^add/$', views.add_goods, name="add_goods"),
+    url(r'^add/success$', views.add_success, name="add_success"),
+    url(r'^transfer_shop_manage/$', views.transfer_shop_manage, name="transfer_shop_manage"),
+    url(r'^api/delete_transfer_shop', views.delete_transfer_shop, name="delete_transfer_shop"),
+    
 ]
 
-#                       url(r'^login/$', 'kucun.views.mylogin', name='mylogin'),
-                       #url(r'^login/fail$', 'kucun.views.login_fail', name='login_fail'),
-                       #url(r'^logout/$', 'kucun.views.mylogout', name="logout"),
+
 
 
 """
+
+
 __author__ = 'Test'
 
 urlpatterns = patterns('',

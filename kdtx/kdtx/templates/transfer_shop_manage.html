@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}调库渠道维护{% endblock %}
+{% block title %}調庫渠道維護{% endblock %}
 
 {% block otherstyle %}
     <style>
@@ -36,17 +36,24 @@
 {% endblock %}
 
 {% block somescript %}
-    <script>
+    <script type='text/javascript'>
+    // using jQuery
+    $.ajaxSetup({
+        data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+    });
+    // using jQuery
         $(document).ready(function () {
             $("button.delete").click(function (e) {
                 e.preventDefault();
                 var shop_id = $(this).attr("shop_id");
-                if (confirm("是否确认删除")) {
-                    $.post("/kucun/api/delete_transfer_shop/",
+                if (confirm("是否確認刪除")) {
+                    // alert("Yes");
+                    $.post("/api/delete_transfer_shop",
                             {
                                 shop_id: shop_id
                             },
                             function (data, status) {
+                                // alert("function");
                                 if (data == 'chaoguo') {
                                     alert('操作失败！库存不足！')
                                 } else if (data == 'stop') {
@@ -72,20 +79,21 @@
 {% endblock %}
 
 {% block content %}
+{# rem  $.post("/kucun/api/delete_transfer_shop/",  #}
     <div class="col-md-5">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">添加调库渠道</h3>
+                <h3 class="panel-title">添加調庫渠道</h3>
             </div>
             <div class="panel-body">
-                <form role="form" class="form-signin" method="post">
-                    <p>渠道名称：</p>
-                    <input type="text" autofocus="" required="" name="name" placeholder="渠道名称"
+                <form role="form" class="form-signin" method="post">{% csrf_token %}
+                    <p>渠道名稱：</p>
+                    <input type="text" autofocus="" required="" name="name" placeholder="渠道名稱"
                            class="form-control">
 
-                    <p>联 电：</p>
-                    <input type="text" placeholder="联电" name="phonenumber" class="form-control">
-                    <button type="submit" class="btn btn-lg btn-primary btn-block">添加</button>
+                    <p>電話：</p>
+                    <input type="text" placeholder="電話" name="phonenumber" class="form-control">
+                    <button type="submit" class="btn btn-lg btn-primary btn-block">增加</button>
                 </form>
             </div>
         </div>
@@ -93,13 +101,13 @@
     <div class="col-md-7">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">现有调库渠道</h3>
+                <h3 class="panel-title">現有調庫渠道</h3>
             </div>
             <div class="panel-body">
                 <table class="table table-hover">
                     <tr>
-                        <th>名 称</th>
-                        <th>联 电</th>
+                        <th>名 稱</th>
+                        <th>電 話</th>
                         <th>删 除</th>
                     </tr>
                     {% for shop in shops %}

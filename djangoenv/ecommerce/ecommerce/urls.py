@@ -19,11 +19,11 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
-from shop.views import product_list
+# from shop.views import product_list
+# url(r'^$', product_list ),
 
 urlpatterns = [
-	url(r'^$', product_list ),
-	url(r'^shop/', include('shop.urls')),
+	url(r'', include('shop.urls')),
     url(r'^admin/', include(admin.site.urls)),
 ]
 

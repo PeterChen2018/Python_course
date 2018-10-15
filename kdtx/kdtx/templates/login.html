@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}登录卡迪管理系统{% endblock %}
+{% block title %}管理系统{% endblock %}
 {% block otherstyle %}
     <style>
         .form-signin {
@@ -54,9 +54,10 @@
 {% block top %}{% endblock %}
 {% block content %}
     <form role="form" class="form-signin" method="post">
-        <h2 class="form-signin-heading">請登錄</h2>
+    {% csrf_token %}
+        <h2 class="form-signin-heading">管理系统</h2>
         <input type="text" autofocus="" required="" name="username" placeholder="帳號" class="form-control">
         <input type="password" required="" name="password" placeholder="密碼" class="form-control">
-        <button type="submit" class="btn btn-lg btn-primary btn-block">登錄</button>
+        <button type="submit" class="btn btn-lg btn-primary btn-block">登入</button>
     </form>
 {% endblock %}

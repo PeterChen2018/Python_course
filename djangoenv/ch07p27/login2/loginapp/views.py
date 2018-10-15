@@ -7,6 +7,15 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 
+def get_allsessions(request):
+	if request.session!=None:
+		strsessions=""
+		for key1,value1 in request.session.items():
+			strsessions= strsessions + key1 + ":" + str(value1) + "<br>"
+		return HttpResponse(strsessions)
+	else:
+		return HttpResponse('Session 不存在!')	
+
 """
 @login_required(login_url='/kucun/login')
 def mylogin(request):
@@ -34,6 +43,8 @@ def mylogout(request):
     logout(request)
     return HttpResponseRedirect(reverse('mylogin'))
 """
+# @login_required(login_url='/loginapp/login')
+
 
 @login_required(login_url='/loginapp/login')
 def user_detail(request):
@@ -45,7 +56,7 @@ def user_detail(request):
 	   is_active=request.user.is_active
 	   is_staff=request.user.is_staff
 	   last_login=request.user.last_login
-	return render(request, "detail.html", locals())
+	return render(request, "detail2.html", locals())
 
 def index(request):
 	if request.user.is_authenticated:
@@ -66,8 +77,7 @@ def login(request):
 		if user is not None:
 			if user.is_active:
 				auth.login(request,user)
-				return redirect('/detail/')
-				# return redirect('/index/')
+				return redirect('/index/')
 				message = '登入成功！'
 			else:
 				message = '帳號尚未啟用！'

@@ -2,7 +2,7 @@
 from django.conf.urls import url
 from . import views
 
-app_name = 'kucun'
+app_name = 'loginapp'
 __author__ = 'Test'
 
 urlpatterns = [
@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^logout/$', views.logout, name='logout'),
     # url(r'^login/$', views.login, name='login'),
     url(r'^login', views.login, name='login'),
+    url(r'^get_allsessions/$', views.get_allsessions),
 ]
 
 #　

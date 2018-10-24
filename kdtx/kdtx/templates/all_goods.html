@@ -11,16 +11,16 @@
 
         </div>
     </div>
-    <script>
+    <script type='text/javascript'>
         $(document).ready(function () {
             $('button.sell').click(function () {
                 var goods_id = $(this).attr("goods_id");
                 var shop_id = $(this).attr("shop_id");
                 var action = $(this).attr("action");
-                {#                alert(goods_id);#}
-                {#                alert(shop_id);#}
+                {#  alert(goods_id); #}
+                {#  alert(shop_id); #}
                 $('#myModal').modal({
-                    remote: "/kucun/api/sell/?goods_id=" + goods_id + "&shop_id=" + shop_id + '&action=' + action,
+                    remote: "/api/sell/?goods_id=" + goods_id + "&shop_id=" + shop_id + '&action=' + action,
                     backdrop: "static"
                 })
             });
@@ -29,18 +29,19 @@
                 var goods_id = $(this).attr("goods_id");
                 var shop_id = $(this).attr("shop_id");
                 var action = $(this).attr("action");
-                {#                alert(goods_id);#}
-                {#                alert(shop_id);#}
+                {# remote: "/kucun/api/add/?goods_id=" + goods_id + "&shop_id=" + shop_id + '&action=' + action, #}
+                {# remark alert('button.add'); alert(goods_id); alert(shop_id); #}
                 $('#myModal').modal({
-                    remote: "/kucun/api/add/?goods_id=" + goods_id + "&shop_id=" + shop_id + '&action=' + action,
+                    remote: "/api/add/?goods_id=" + goods_id + "&shop_id=" + shop_id + '&action=' + action,
                     backdrop: "static"
                 })
             });
+            
             {% if request.user.is_superuser %}
                 $('abbr.update').click(function () {
                     var goods_id = $(this).attr("goods_id");
                     $('#myModal').modal({
-                        remote: "/kucun/api/update/?goods_id=" + goods_id,
+                        remote: "/api/update/?goods_id=" + goods_id,
                         backdrop: "static"
                     })
                 });
@@ -49,7 +50,7 @@
                     var goods_id = $(this).attr("goods_id");
                     var shop_id = $(this).attr("shop_id");
                     $('#myModal').modal({
-                        remote: "/kucun/api/update_count/?goods_id=" + goods_id + "&shop_id=" + shop_id,
+                        remote: "/api/update_count/?goods_id=" + goods_id + "&shop_id=" + shop_id,
                         backdrop: "static"
                     })
                 });
@@ -61,7 +62,7 @@
                 {#                                alert(goods_id);#}
                 {#                                alert(shop_id);#}
                 $('#myModal').modal({
-                    remote: "/kucun/api/transfer/?goods_id=" + goods_id + "&shop_id=" + shop_id,
+                    remote: "/api/transfer/?goods_id=" + goods_id + "&shop_id=" + shop_id,
                     backdrop: "static"
                 })
             });
@@ -91,18 +92,18 @@
             <td>
                 <button type="button" class="btn btn-danger btn-xs sell" shop_id="{{ data.kadi.shop.id }}"
                         action="sub"
-                        goods_id="{{ data.kadi.goods.id }}">销售
+                        goods_id="{{ data.kadi.goods.id }}">銷售
                 </button>
             </td>
             <td>
                 <button type="button" class="btn btn-success btn-xs add" shop_id="{{ data.kadi.shop.id }}"
                         action="add"
-                        goods_id="{{ data.kadi.goods.id }}">进库
+                        goods_id="{{ data.kadi.goods.id }}">進庫
                 </button>
             </td>
             <td>
                 <button type="button" class="btn btn-info btn-xs transfer" shop_id="{{ data.kadi.shop.id }}"
-                        goods_id="{{ data.kadi.goods.id }}">调库
+                        goods_id="{{ data.kadi.goods.id }}">調庫
                 </button>
             </td>
         </tr>
@@ -126,18 +127,18 @@
             <td>
                 <button type="button" class="btn btn-danger btn-xs sell" shop_id="{{ data.kadi.shop.id }}"
                         action="sub"
-                        goods_id="{{ data.kadi.goods.id }}">销售
+                        goods_id="{{ data.kadi.goods.id }}">銷售
                 </button>
             </td>
             <td>
                 <button type="button" class="btn btn-success btn-xs add" shop_id="{{ data.kadi.shop.id }}"
                         action="add"
-                        goods_id="{{ data.kadi.goods.id }}">进库
+                        goods_id="{{ data.kadi.goods.id }}">進庫
                 </button>
             </td>
             <td>
                 <button type="button" class="btn btn-info btn-xs transfer" shop_id="{{ data.kadi.shop.id }}"
-                        goods_id="{{ data.kadi.goods.id }}">调库
+                        goods_id="{{ data.kadi.goods.id }}">調庫
                 </button>
             </td>
         </tr>
@@ -161,18 +162,18 @@
             <td>
                 <button type="button" class="btn btn-danger btn-xs sell" shop_id="{{ data.kadi.shop.id }}"
                         action="sub"
-                        goods_id="{{ data.kadi.goods.id }}">销售
+                        goods_id="{{ data.kadi.goods.id }}">銷售
                 </button>
             </td>
             <td>
                 <button type="button" class="btn btn-success btn-xs add" shop_id="{{ data.kadi.shop.id }}"
                         action="add"
-                        goods_id="{{ data.kadi.goods.id }}">进库
+                        goods_id="{{ data.kadi.goods.id }}">進庫
                 </button>
             </td>
             <td>
                 <button type="button" class="btn btn-info btn-xs transfer" shop_id="{{ data.kadi.shop.id }}"
-                        goods_id="{{ data.kadi.goods.id }}">调库
+                        goods_id="{{ data.kadi.goods.id }}">調庫
                 </button>
             </td>
         </tr>

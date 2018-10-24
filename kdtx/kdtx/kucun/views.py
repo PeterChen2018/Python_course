@@ -98,6 +98,220 @@ def get_session(request,key=None):
 		return HttpResponse('Session 不存在!')
 
 
+@csrf_exempt
+def api_add(request):  # 進庫
+    print 'api_add '
+    if request.method == 'GET':
+        print 'api_add > GET'
+        goods_id = request.GET['goods_id']
+        shop_id = request.GET['shop_id']
+        action = request.GET['action']
+        goodsshop = GoodsShop.objects.get(goods__id=goods_id, shop__id=shop_id)
+        inbound_channels = InboundChannel.objects.order_by('id')
+        if action != 'add':
+            return HttpResponse('error')
+        return render_to_response('modal_add.html',
+                                  {'request': request, 'goodsshop': goodsshop, 'inbound_channels': inbound_channels})
+    elif request.method == 'POST':
+        print 'api_add > POST'
+        user = request.user
+        if not user:
+            return HttpResponse("false")
+        shop_id = request.POST['shop_id']
+        goods_id = request.POST['goods_id']
+        number = int(request.POST['number'])
+        price = request.POST.get('price')
+        remark = request.POST.get('remark', "")
+        inbound_channel_id = request.POST['inbound_channel_id']
+        if price:
+            price = float(price)
+            if price < 0:
+                return HttpResponse('false')
+        if number < 0:
+            return HttpResponse('false')
+
+        goodsshop = GoodsShop.objects.get(goods__id=goods_id, shop__id=shop_id)
+        goods = Goods.objects.get(id=goods_id)
+        shop = Shop.objects.get(id=shop_id)
+        inbound_channel = InboundChannel.objects.get(id=inbound_channel_id)
+
+        if not price:
+            price = goods.last_price
+
+        goods.average_price = round((goodsshop.remain * goods.average_price + int(number) * price) / (
+            goodsshop.remain + int(number)), 2)
+        goods.last_price = price
+        goods.save()
+
+        goods_record = GoodsRecord(goods=goods, shop=shop, change_num=number, updater=user)
+        goods_record.save()
+
+        goodsshop.remain += int(number)
+        goodsshop.save()
+
+        goods_add_record = GoodsAddRecord(goods=goods, shop=shop, number=number, price=price,
+                                          inbound_channel=inbound_channel, remark=remark, updater=user)
+        goods_add_record.save()
+        
+        print goodsshop.remain
+        
+        return HttpResponse(goodsshop.remain)
+
+
+"""
+def api_add(request):  # 進庫
+    print 'api_add'
+    if request.method == 'POST':
+        return HttpResponse('success')
+    else:
+        return HttpResponse('Test')
+"""
+
+@csrf_exempt
+def api_sell(request):  # 銷售
+    if request.method == 'GET':
+        goods_id = request.GET['goods_id']
+        shop_id = request.GET['shop_id']
+        action = request.GET['action']
+        goodsshop = GoodsShop.objects.get(goods=Goods.objects.get(id=goods_id), shop=Shop.objects.get(id=shop_id))
+        if action != 'sub':
+            return HttpResponse('error')
+        return render_to_response('modal_sell.html',
+                                  {'request': request, 'goodsshop': goodsshop})
+    elif request.method == 'POST':
+        user = request.user
+        if not user:
+            return HttpResponse("false")
+        goods_id = request.POST['goods_id']
+        shop_id = request.POST['shop_id']
+        number = int(request.POST['number'])
+        price = float(request.POST['price'])
+        arrears = request.POST['arrears']
+        customer = request.POST.get('customer', '無')
+        phonenumber = request.POST.get('phonenumber', '無')
+        address = request.POST.get('address', '無')
+        remark = request.POST.get('remark', '無')
+
+        if arrears == '0':
+            arrears = False
+        if arrears == '1':
+            arrears = True
+
+        goods = Goods.objects.get(id=goods_id)
+        shop = Shop.objects.get(id=shop_id)
+        goodsshop = GoodsShop.objects.get(goods__id=goods_id, shop__id=shop_id)
+
+        goods_record = GoodsRecord(goods=goods, shop=shop, change_num=(-number), updater=user)
+        goods_record.save()
+
+        goodsshop.remain -= int(number)
+        goodsshop.save()
+
+        goods_sell_record = GoodsSellRecord(goods=goods, shop=shop, sell_num=number, average_price=goods.average_price,
+                                            sell_price=price, is_arrears=arrears, customer=customer,
+                                            phonenumber=phonenumber, address=address, remark=remark,
+                                            updater=user)
+        goods_sell_record.save()
+        return HttpResponse(goodsshop.remain)
+
+
+
+@csrf_exempt
+def api_transfer(request):  # 調庫
+    if request.method == 'GET':
+        goods_id = request.GET['goods_id']
+        shop_id = request.GET['shop_id']
+        goodsshop = GoodsShop.objects.get(goods=Goods.objects.get(id=goods_id), shop=Shop.objects.get(id=shop_id))
+        transfer_shops = TransferShop.objects.all()
+        return render_to_response('modal_transfer.html',
+                                  {'request': request, 'goodsshop': goodsshop, 'transfer_shops': transfer_shops})
+    elif request.method == 'POST':
+        user = request.user
+        if not user:
+            return HttpResponse("false")
+        to_shop_id = request.POST['to_shop_id']
+        goods_id = request.POST['goods_id']
+        shop_id = request.POST['shop_id']
+        number = int(request.POST['number'])
+        remark = request.POST.get('remark', '无')
+
+        goods = Goods.objects.get(id=goods_id)
+        shop = Shop.objects.get(id=shop_id)
+        goodsshop = GoodsShop.objects.get(goods__id=goods_id, shop__id=shop_id)
+        transfer_shop = TransferShop.objects.get(id=to_shop_id)
+
+        goods_record = GoodsRecord(goods=goods, shop=shop, change_num=(-number), updater=user)
+        goods_record.save()
+
+        transfer_record = TransferRecord(transfer_shop=transfer_shop, goods=goods, count=number, remark=remark,
+                                         updater=user)
+        transfer_record.save()
+
+        goodsshop.remain -= int(number)
+        goodsshop.save()
+
+        return HttpResponse(goodsshop.remain)
+
+
+
+@csrf_exempt
+def api_update(request): # 更新
+    if request.method == 'GET':
+        goods_id = request.GET['goods_id']
+        goods = Goods.objects.get(id=goods_id)
+        return render_to_response('modal_update.html', {'request': request, 'goods': goods})
+    elif request.method == 'POST':
+        user = request.user
+        if not user.is_superuser:
+            return HttpResponse("stop")
+        old_goods_name = request.POST['old_goods_name']
+        old_goods_price = request.POST['old_goods_price']
+        name = request.POST['name']
+        goods_id = request.POST['goods_id']
+        price = request.POST['price']
+
+        if old_goods_name != name:
+            records = GoodsRecord.objects.filter(goods__name=old_goods_name)
+            if records:
+                return HttpResponse('not_update_name')
+
+        goods = Goods.objects.get(id=goods_id)
+        goods.name = name
+        goods.average_price = price
+        goods.update_date = datetime.date.today()
+        goods.save()
+
+        return HttpResponse(goods.name)
+
+
+
+@csrf_exempt
+def api_update_count(request): # 盤點庫存
+    if request.method == 'GET':
+        goods_id = request.GET['goods_id']
+        shop_id = request.GET['shop_id']
+        goods_shop = GoodsShop.objects.get(goods__id=goods_id, shop__id=shop_id)
+        return render_to_response('modal_update_count.html', {'request': request, 'goods_shop': goods_shop})
+    elif request.method == 'POST':
+        user = request.user
+        goods_id = request.POST['goods_id']
+        shop_id = request.POST['shop_id']
+        real_count = request.POST['real_count']
+        goods_shop = GoodsShop.objects.get(goods__id=goods_id, shop__id=shop_id)
+        old_count = goods_shop.remain
+
+        change_count_record = ChangeCountRecord(goods=goods_shop.goods, old_count=old_count, real_count=real_count,
+                                                updater=user)
+        change_count_record.save()
+
+        goods_shop.remain = real_count
+        goods_shop.save()
+
+        return HttpResponse(goods_shop.remain)
+
+
+
+
 
 def delete_transfer_shop(request):
     print 'delete_transfer_shop'
@@ -153,7 +367,9 @@ def all_goods(request):
     print 'all_goods'
     # time.sleep(3)
     goods = Goods.objects.filter(is_delete=False).order_by('goods_name')
-    # print goods    # 如果有中文字會有問題
+    # print goods       # 如果有中文字會有問題
+    # for temp in goods:  # 如果有中文字 要單獨顯示 不可以直接 print
+    #    print temp.goods_name
     datas = []
     amount = 0
     for good in goods:

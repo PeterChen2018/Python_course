@@ -21,6 +21,15 @@ urlpatterns = [
     url(r'^add/success$', views.add_success, name="add_success"),
     url(r'^transfer_shop_manage/$', views.transfer_shop_manage, name="transfer_shop_manage"),
     url(r'^api/delete_transfer_shop', views.delete_transfer_shop, name="delete_transfer_shop"),
+    url(r'^api/add', views.api_add , name="api_add"),
+    url(r'^api/sell', views.api_sell, name="api_sell"),
+    url(r'^api/transfer', views.api_transfer, name="api_transfer"),
+    url(r'^api/update/', views.api_update , name="api_update"),
+    url(r'^api/update_count/', views.api_update_count , name="api_update_count"),
+    
+    
+    
+    
     
 ]
 

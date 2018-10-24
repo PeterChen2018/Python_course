@@ -33,11 +33,11 @@
                 }
 
                 if (price < 0) {
-                    alert("销售价格不允许为负数！");
+                    alert("銷售價格不允許為負數！");
                     return
                 }
 
-                $.post("/kucun/api/sell/",
+                $.post("/api/sell",
                         {
                             goods_id: goods_id,
                             shop_id: shop_id,
@@ -99,7 +99,7 @@
 {% endblock %}
 {% block content %}
     <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel"><b style="color: #ff000a">【{{ goodsshop.goods.goods_name }}】</b>销售
+        <h4 class="modal-title" id="myModalLabel"><b style="color: #ff000a">【{{ goodsshop.goods.goods_name }}】</b>銷售
         </h4>
     </div>
     <form role="form" class="form-diaoku" method="post" id="form-diaoku">
@@ -108,21 +108,21 @@
 
         <table class="table table-bordered">
             <tr>
-                <td>数 量：</td>
+                <td>數量：</td>
                 <td><input type="text" id="number" name="number" autocomplete="off"/></td>
             </tr>
             <tr>
-                <td>单 价：</td>
+                <td>單價：</td>
                 <td><input type="text" id="price" name="price" autocomplete="off"/></td>
             </tr>
             <tr>
-                <td>合 计：</td>
+                <td>合計：</td>
                 <td>
                     <input type="text" id="all_price" name="all_price" autocomplete="off" readonly/>
                 </td>
             </tr>
             <tr>
-                <td>欠 账：</td>
+                <td>欠賬：</td>
                 <td>
                     <label class="radio-inline">
                         <input type="radio" name="arrears" id="arrears1" value="1">是
@@ -137,7 +137,7 @@
                 <td><input type="text" id="customer" name="customer" autocomplete="off"/></td>
             </tr>
             <tr>
-                <td>联 电：</td>
+                <td>電 話：</td>
                 <td><input type="text" id="phonenumber" name="phonenumber" autocomplete="off"/></td>
             </tr>
             <tr>
@@ -145,15 +145,15 @@
                 <td><input type="text" id="address" name="address" autocomplete="off"/></td>
             </tr>
             <tr>
-                <td>备 注：</td>
+                <td>備 註：</td>
                 <td><textarea type="text" id="remark" name="remark" autocomplete="off"></textarea></td>
             </tr>
             <tr>
                 <td>
-                    <button class="btn btn-lg btn-success submit" id="mySubmit">确定</button>
+                    <button class="btn btn-lg btn-success submit" id="mySubmit">確定</button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-lg btn-warning" data-dismiss="modal" id="myclose">关闭</button>
+                    <button type="button" class="btn btn-lg btn-warning" data-dismiss="modal" id="myclose">取消</button>
                 </td>
             </tr>
         </table>

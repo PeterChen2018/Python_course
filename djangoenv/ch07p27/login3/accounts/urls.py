@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
+
+"""
 from django.conf.urls import url
 from . import views
-
-app_name = 'testap'
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -23,3 +23,5 @@ urlpatterns = [
 # 
 # url(r'^api/delete_goods', 'kucun.views.delete_goods', name="delete_goods"),
 # url(r'^login/$', 'kucun.views.mylogin', name='mylogin'),
+# app_name = 'testap'
+"""

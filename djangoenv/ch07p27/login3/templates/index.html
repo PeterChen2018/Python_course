@@ -8,8 +8,10 @@
     <h2>首頁 INDEX PAGE 1</h2>
     {% if request.user.is_authenticated %}
         歡迎光臨: {{name}}
-		<br>First name: {{first_name}}
-		<br>Last name: {{last_name}}
+		<br>First name: {{userinfo.user.first_name}}
+		<br>Last name: {{userinfo.user.last_name}}
+		<br>accepted_eula: {{userinfo.accepted_eula}}
+		<br>favorite_animal: {{userinfo.favorite_animal}}
         <p><a href="/logout/">登出</a></p>
     {% else %}
         <p>您尚未登入喔~</p>

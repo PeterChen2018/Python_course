@@ -12,8 +12,8 @@ sp_choices =((1, '羅萊'),(2, '優家'),(3,'寶縵'),(4,'其他')) #(99,'退庫
 staffid = threadlocals.get_current_staffid()
 
 class YLogin(forms.Form):
-    username = forms.CharField(max_length=20,label='姓名')
-    password = forms.CharField(max_length=10,widget=forms.PasswordInput(),label='密码')
+    username = forms.CharField(max_length=20,label='名稱')
+    password = forms.CharField(max_length=10,widget=forms.PasswordInput(),label='密碼')
 
 
 class CustomerAdd(forms.Form):

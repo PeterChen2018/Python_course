@@ -10,12 +10,17 @@
     DD_belatedPNG.fix('.png');
     </script>
     <![endif]-->
-    <title>登录 | YPSI 进销存管理系统</title>
+    <title>LOGIN | 進銷存管理系統</title>
     <script type="text/javascript">
+    // use jquery
+    $.ajaxSetup({
+       data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+    });
+    // use jquery
     $().ready(function() {
         if (window.location.search=="?act=stop"){
             $("#form_ul").children("li").remove();
-            $("#form_ul").after("<div style='padding:6px' align='center'> 请关闭浏览器后重新登录</div>")
+            $("#form_ul").after("<div style='padding:6px' align='center'> 請關閉瀏覽器後重新登錄</div>")
         }
 
         if ($(".errorlist").length>0){
@@ -56,9 +61,10 @@
             </div>
             <div style="background:#fafafa;padding:6px;*padding-top:20px;height:1%">
             <form action="?act=check" method="POST">
+            {% csrf_token %}
                 <ul id="form_ul">
                {{ form.as_ul }}
-                <li><button id="new_btn" style="height: 30px;font-size: 14px;width: 80px;margin-left: 125px;position: relative;" type="submit"><img src="/static/images/css/key_small.png" class=" png"> 登录</button></li>
+                <li><button id="new_btn" style="height: 30px;font-size: 14px;width: 80px;margin-left: 125px;position: relative;" type="submit"><img src="/static/images/css/key_small.png" class=" png"> 登入</button></li>
             </ul>
             </form>
             </div>

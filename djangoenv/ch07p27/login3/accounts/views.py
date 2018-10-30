@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
+from .models import UserProfile
 
 def get_allsessions(request):
 	if request.session!=None:
@@ -62,13 +63,28 @@ def user_detail(request):
 def index(request):
 	if request.user.is_authenticated:
 	   name=request.user.username
-	   first_name=request.user.first_name
-	   last_name=request.user.last_name
-	   email=request.user.email
-	   is_active=request.user.is_active
-	   is_staff=request.user.is_staff
-	   last_login=request.user.last_login
+	   #first_name=request.user.first_name
+	   #last_name=request.user.last_name
+	   #email=request.user.email
+	   #is_active=request.user.is_active
+	   #is_staff=request.user.is_staff
+	   #last_login=request.user.last_login
+	   print name
+	   print User.objects.get(username=name)
+	   try:
+	       user = User.objects.get(username=name)
+	       print user
+	       print 'userinfo'
+	       print UserProfile.objects.get(user=user)
+	       userinfo = UserProfile.objects.get(user=user)
+	       print userinfo.user.username
+	       print userinfo.accepted_eula
+	       print userinfo.favorite_animal
+	   except:
+	       print 'pass'
+	       pass
 	return render(request, "index.html", locals())
+
 
 def login(request):
 	if request.method == 'POST':

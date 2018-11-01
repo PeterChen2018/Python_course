@@ -9,7 +9,8 @@ import re
 
 sp_choices =((1, '羅萊'),(2, '優家'),(3,'寶縵'),(4,'其他')) #(99,'退庫')
 
-staffid = threadlocals.get_current_staffid()
+# staffid = threadlocals.get_current_staffid()
+staffid = 1
 
 class YLogin(forms.Form):
     username = forms.CharField(max_length=20,label='名稱')
@@ -52,10 +53,13 @@ class RemitAdd(forms.Form):
     note = forms.CharField(label="备注 ",required=False,max_length=100,widget=forms.Textarea(attrs={'rows':'5'}))
 
 class InStream(forms.Form):
+    print 'InStream'
+    print staffid
     code = forms.CharField(label="單號",required=False)
     supplier = forms.ChoiceField(label="供貨單位 * ",choices=sp_choices) # 供貨單位 * 
     date = forms.DateField(label="日期 * ")
     keeper = forms.ModelChoiceField(label="倉管 * ",queryset=Staff.objects.filter(id=staffid),widget=forms.Select,initial=staffid)
+    # keeper = forms.CharField(label="倉管 * ")
     staff1 = forms.ModelChoiceField(label="經辦 * ",queryset=Staff.objects.filter(level__gte=5),widget=forms.Select)
     hidden = forms.BooleanField(label="刪除標記",widget=forms.CheckboxInput,required=False)
     note = forms.CharField(max_length=100,label="備註",widget=forms.Textarea(attrs={'rows':'5'}),required=False)

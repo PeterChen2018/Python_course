@@ -129,5 +129,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # AUTH_PROFILE_MODULE = 'accounts.UserProfile'   # User profile
-AUTH_PROFILE_MODULE = 'psi.Staff'                # User profile
+# AUTH_PROFILE_MODULE = 'psi.Staff'                # User profile
 

@@ -15,13 +15,31 @@ from psi import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/login/', views.user_login),
+    url(r'^logout/', views.logout),
     url(r'^$', views.ypsi_index),
     url(r'^staff/$', views.ypsi_staff),
-    url(r'^depots/$', views.ypsi_depots),
-    url(r'^category/$', views.ypsi_category),
-    url(r'^depots/in/$', views.ypsi_depots_in),
     url(r'^get_allsessions/$', views.get_allsessions),
     url(r'^get_session/(\w+)/$', views.get_session),
+    
+    url(r'^category/$', views.ypsi_category),
+    
+    
+    url(r'^depots/$', views.ypsi_depots),
+    url(r'^depots/in/$', views.ypsi_depots_in),
+    url(r'^depots/charts/$',   views.ypsi_depots_charts ),
+    url(r'^depots/product/$',  views.ypsi_depots_product ),
+    url(r'^depots/(out|re)/$', views.ypsi_depots_out ),
+    url(r'^depots/remit/$',    views.ypsi_depots_remit ),
+    
+    url(r'^sales/$', views.ypsi_sales ),
+    url(r'^sales/add/$',    views.ypsi_sales_add ),
+    url(r'^sales/search/$', views.ypsi_sales_search ),
+    url(r'^sales/show/$',   views.ypsi_sales_show ),
+    url(r'^sales/mini/$',   views.ypsi_sales_mini ),
+    url(r'^sales/chart/$',  views.ypsi_sales_chart ),
+    
+    
+    
     
     
 ]

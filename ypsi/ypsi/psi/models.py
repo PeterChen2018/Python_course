@@ -33,7 +33,7 @@ class Staff(models.Model):
     sex  = models.CharField(max_length=2,help_text="性别" ,choices=(('F', '女性'),('M', '男性')),default='F')
     image = models.ImageField(upload_to='staffs',blank=True,null=True,help_text="照片")
     edu   = models.CharField(max_length=4,help_text="學歷")
-    marital = models.BooleanField(help_text="婚否" ,default=True )
+    marital = models.BooleanField(help_text="婚否" ,choices=((True, '已婚'),(False, '未婚')) ,default=False )
     school = models.CharField(max_length=100,help_text="畢業學校",blank=True,null=True)
     graduation = models.DateField(help_text="畢業日期",blank=True,null=True)
     address = models.CharField(help_text="住址",max_length=100)
@@ -218,7 +218,8 @@ class InStream(models.Model): #出入庫分離
             return 0,0
     i_str = property(get_total_amount)
     def __unicode__(self):
-        return u"%s 經%s、%s 辦理共%s種%s件價值%s元[%s]" %(self.code,self.keeper,self.staff1,self.i_str[0],self.i_str[1],self.i_str[2],self.date)
+        # return u"%s 經%s、%s 辦理共%s種%s件價值%s元[%s]" %(self.code,self.keeper,self.staff1,self.i_str[0],self.i_str[1],self.i_str[2],self.date)
+        return self.code
     class Meta:
         verbose_name_plural = ('入庫管理')
 
